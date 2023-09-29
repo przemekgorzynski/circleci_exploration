@@ -35,6 +35,8 @@ workflows:
       - define_condition_job
 
   first-wf:
+    when: 
+      equal: [ main, << pipeline.git.branch >> ]
     jobs:
       - say-hello
       - say-godbye:
