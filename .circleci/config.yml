@@ -18,8 +18,19 @@ jobs:
       - run:
           name: "Say goodbye"
           command: "ls -la"
+  define_condition_job:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run: "ver = `cat version.json | jq '.version'`"
+      - run: "echo $ver"
 
 workflows:
+  define_condition:
+    jobs:
+      - define_condition_job
+
   first-wf:
     jobs:
       - say-hello
