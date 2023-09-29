@@ -12,6 +12,10 @@ jobs:
           command: "ls -la"
 
 workflows:
-  say-hello-workflow:
+  first-wf:
+    jobs:
+      - say-hello
+
+  second-wf:
     jobs:
       - say-hello
