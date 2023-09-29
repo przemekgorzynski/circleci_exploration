@@ -2,7 +2,7 @@ version: 2.1
 
 parameters:
   release:
-    type: bool
+    type: boolean
     default: false
 
 jobs:
