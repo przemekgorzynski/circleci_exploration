@@ -10,12 +10,19 @@ jobs:
       - run:
           name: "Say hello"
           command: "ls -la"
+  say-godbye:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:
+          name: "Say goodbye"
+          command: "ls -la"
 
 workflows:
   first-wf:
     jobs:
       - say-hello
-
-  second-wf:
-    jobs:
-      - say-hello
+      - say-godbye:
+          requires:
+          - say-hello
