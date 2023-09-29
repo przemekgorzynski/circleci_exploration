@@ -23,8 +23,11 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
-      - run: "ver = `cat version.json | jq '.version'`"
-      - run: "echo $ver"
+      - run: 
+          name: check
+          command: |
+            ver=$(cat version.json | jq '.version')
+            echo $ver
 
 workflows:
   define_condition:
