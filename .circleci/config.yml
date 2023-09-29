@@ -36,7 +36,7 @@ workflows:
 
   first-wf:
     when: 
-      equal: [ main, << pipeline.git.branch >> ]
+      equal: [ master, << pipeline.git.branch >> ]
     jobs:
       - say-hello
       - say-godbye:
