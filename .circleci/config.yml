@@ -40,7 +40,7 @@ workflows:
 
   first-wf:
     when: 
-      equal: [ true, << pipeline.parameters.release >> ]
+      equal: [ false, << pipeline.parameters.release >> ]
     jobs:
       - say-hello
       - say-godbye:
