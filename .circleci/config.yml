@@ -1,5 +1,9 @@
-
 version: 2.1
+
+parameters:
+  release:
+    type: bool
+    default: false
 
 jobs:
   say-hello:
@@ -36,7 +40,7 @@ workflows:
 
   first-wf:
     when: 
-      equal: [ master, << pipeline.git.branch >> ]
+      equal: [ true, << pipeline.parameters.release >> ]
     jobs:
       - say-hello
       - say-godbye:
