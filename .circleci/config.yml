@@ -1,10 +1,5 @@
 version: 2.1
 
-parameters:
-  release:
-    type: boolean
-    default: false
-
 jobs:
   say-hello:
     docker:
@@ -32,15 +27,19 @@ jobs:
           command: |
             ver=$(cat version.json | jq '.version')
             echo $ver
+      - parameters:
+          release:
+            type: string
+            default: "echo ${ver}"
 
 workflows:
-  define_condition:
+  define_update_condition:
     jobs:
       - define_condition_job
 
   first-wf:
     when: 
-      equal: [ false, << pipeline.parameters.release >> ]
+      equal: [ "v0.0.2", << pipeline.parameters.release >> ]
     jobs:
       - say-hello
       - say-godbye:
