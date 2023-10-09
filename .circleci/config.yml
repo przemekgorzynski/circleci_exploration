@@ -19,7 +19,7 @@ jobs:
             tag_ver=$(git describe --tags --abbrev=0)
             echo file_ver=$ver >> "$BASH_ENV"
             echo git_tag=$tag_ver >> "$BASH_ENV"
-            if [ $file_ver > $git_tag ]; then echo export release=yes; else release=no; fi
+            if [ $file_ver > $git_tag ]; then release=yes; else release=no; fi
             echo release=$release >> "$BASH_ENV"
             cp $BASH_ENV bash.env
             cat bash.env
