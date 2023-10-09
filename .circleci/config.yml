@@ -39,14 +39,9 @@ jobs:
             echo $tag_ver
 
 workflows:
-  define_update_condition:
+  general:
     jobs:
       - define_condition_job
-
-  first-wf:
-    when: 
-      equal: [ "v0.0.2", << pipeline.parameters.release >> ]
-    jobs:
       - say-hello
       - say-godbye:
           requires:
