@@ -55,6 +55,8 @@ workflows:
       - check_versions
       - approval:
           type: approval
+          requires:
+          - check_versions
       - deploy:
           requires:
           - approval
