@@ -32,8 +32,12 @@ jobs:
           command: |
             ver=$(cat version.json | jq '.version')
             echo $ver
-            << pipeline.parameters.release >>  = $ver
-
+            '<< pipeline.parameters.release >>''  = $ver
+      - run: 
+          name: Get curent tag
+          command: |
+            tag_ver=$(git describe --tags --abbrev=0)
+            echo $tag_ver
 
 workflows:
   define_update_condition:
