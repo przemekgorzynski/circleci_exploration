@@ -1,5 +1,10 @@
 version: 2.1
 
+parmaters:
+  file_ver:
+    type: string
+    default: $(cat version.json | jq -r '.version')
+
 jobs:
   check_versions:
     docker:
@@ -31,14 +36,6 @@ jobs:
     resource_class: small
     steps:
       - checkout
-      # - attach_workspace:
-      #     at: .
-      # - run:
-      #     command: |
-      #       cat bash.env >> $BASH_ENV
-      # # - run: |
-      # #     printenv tag_ver
-    when: release
   approval:
     docker:
         - image:  cimg/base:stable
