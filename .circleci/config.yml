@@ -16,7 +16,8 @@ jobs:
           name: Compare version
           command: |
             echo <<pipeline.git.tag>>
-            echo <<parmaters.file_ver>>
+
+          
       # - run: 
       #     name: Compare version
       #     command: |
