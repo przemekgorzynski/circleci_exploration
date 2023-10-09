@@ -50,4 +50,4 @@ workflows:
       - define_variables
       - say-hello
           requires:
-          - define_variables
+            - define_variables
