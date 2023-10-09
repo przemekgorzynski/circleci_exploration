@@ -49,5 +49,8 @@ workflows:
     jobs:
       - check_versions
       - deploy:
+        when:
+          conditon:
+            equal: [ main, << pipeline.git.branch >> ]
           requires:
           - check_versions
