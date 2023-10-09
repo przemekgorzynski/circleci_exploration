@@ -35,6 +35,8 @@ jobs:
           at: .
       - run: |
           cat bash.env >> $BASH_ENV
+          cat bash.env
+          echo $BASH_ENV
       # - run: |
       #     printenv tag_ver
       - run:
