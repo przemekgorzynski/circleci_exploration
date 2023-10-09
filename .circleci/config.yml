@@ -12,7 +12,7 @@ jobs:
       - image: cimg/base:stable
     resource_class: small
     environment:
-      tag: <<pipeline.git.tag>>
+      tag: <<pipeline.git.branch>>
       file_ver: <<parameters.file_ver>>
     steps:
       - checkout
