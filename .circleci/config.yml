@@ -42,11 +42,11 @@ jobs:
       - run:
           name: "Relese"
           command: "echo Relesing"
-    approval:
-      docker:
-          - image:  cimg/base:stable
-      steps:
-        - run: printf "A hold job to wait for a manual approval"
+  approval:
+    docker:
+        - image:  cimg/base:stable
+    steps:
+      - run: printf "A hold job to wait for a manual approval"
 
 
 workflows:
