@@ -6,20 +6,18 @@ jobs:
     parameters:
       file_ver:
         type: string
-        default: cat version.json | jq -r '.version'
+        default: ""
     docker:
       - image: cimg/base:stable
     resource_class: small
     environment:
-      tag: <<pipeline.git.branch>>
-      file_ver: <<parameters.file_ver>>
+      file_ver: "test"
     steps:
       - checkout
       - run: 
           name: Compare version
           command: |
             echo $file_ver
-            echo $tag
           
       # - run: 
       #     name: Compare version
