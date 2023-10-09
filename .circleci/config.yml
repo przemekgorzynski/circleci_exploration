@@ -6,21 +6,6 @@ parameters:
     default: "v0.0.2"
 
 jobs:
-  say-hello:
-    docker:
-      - image: cimg/base:stable
-    resource_class: small
-    steps:
-      - checkout
-      # - attach_workspace:
-      #     at: .
-      # - run: |
-      #     cat bash.env >> $BASH_ENV
-      # - run: |
-      #     printenv tag_ver
-      - run:
-          name: "Say hello"
-          command: "ls -la"
   define_variables:
     docker:
       - image: cimg/base:stable
@@ -34,13 +19,30 @@ jobs:
             tag_ver=$(git describe --tags --abbrev=0)
             echo file_ver=$ver >> "$BASH_ENV"
             echo git_tag=$tag_ver >> "$BASH_ENV"
-            echo $BASH_ENV
+            if [ $file_ver > $git_tag ]; then echo export release=yes; else release=no; fi
+            echo release=$release >> "$BASH_ENV"
             cp $BASH_ENV bash.env
             cat bash.env
       - persist_to_workspace:
           root: .
           paths:
             - bash.env
+  deploy:
+    docker:
+      - image: cimg/base:stable
+    resource_class: small
+    steps:
+      - checkout
+      # - attach_workspace:
+      #     at: .
+      # - run: |
+      #     cat bash.env >> $BASH_ENV
+      # - run: |
+      #     printenv tag_ver
+      - run:
+          name: "Relese"
+          command: "echo Relesing"
+
 
 workflows:
   general:
