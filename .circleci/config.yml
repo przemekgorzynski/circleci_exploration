@@ -1,65 +1,30 @@
 version: 2.1
 
-
 jobs:
   check_versions:
-    parameters:
-      file_ver:
-        type: string
-        default: ""
     docker:
       - image: cimg/base:stable
     resource_class: small
-    environment:
-      file_ver: $(cat version.json | jq -r '.version')
     steps:
       - checkout
       - run: 
           name: Compare version
           command: |
-            echo $file_ver
-          
-      # - run: 
-      #     name: Compare version
-      #     command: |
-      #       file_ver=$(cat version.json | jq -r '.version')
-      #       git_tag=$(git describe --tags --abbrev=0)
-      #       echo "Version defined in file: $file_ver"
-      #       echo "Latest git tag: $git_tag"
-      #       if [[ "$(printf '%s\n' "$file_ver" "$git_tag" | sort -V | tail -n1)" == "$git_tag" ]]; then 
-      #         echo "release=false" >> $BASH_ENV
-      #       else
-      #         echo "release=true" >> $BASH_ENV
-      #       fi
-      #       cp $BASH_ENV bash.env
-      #       cat bash.env
-      # - persist_to_workspace:
-      #     root: .
-      #     paths:
-      #       - bash.env
-  deploy:
-    docker:
-      - image: cimg/base:stable
-    resource_class: small
-    steps:
-      - checkout
-  approval:
-    docker:
-        - image:  cimg/base:stable
-    steps:
-      - run: printf "A hold job to wait for a manual approval"
-
+            file_ver=$(cat version.json | jq -r '.version')
+            git_tag=$(git describe --tags --abbrev=0)
+            echo "Version defined in file: $file_ver"
+            echo "Latest git tag: $git_tag"
+            if [[ "$(printf '%s\n' "$file_ver" "$git_tag" | sort -V | tail -n1)" == "$git_tag" ]]; then 
+              echo "release=false" >> $BASH_ENV
+            else
+              echo "release=true" >> $BASH_ENV
+            fi
+            cp $BASH_ENV bash.env
+            cat bash.env
 
 workflows:
   general:
     jobs:
       - check_versions
-      # - approval:
-      #     type: approval
-      #     requires:
-      #     - check_versions
-      # - deploy:
-      #     requires:
-      #     - approval
-      #     - check_versions
+
 
