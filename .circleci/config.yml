@@ -3,7 +3,7 @@ version: 2.1
 parameters:
   release:
     type: string
-    default: "true"
+    default: "v0.0.2"
 
 jobs:
   say-hello:
