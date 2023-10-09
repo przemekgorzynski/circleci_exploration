@@ -20,7 +20,7 @@ jobs:
       - run:
           name: "Say hello"
           command: "ls -la"
-  define_condition_job:
+  define_variables:
     docker:
       - image: cimg/base:stable
     steps:
@@ -50,4 +50,4 @@ workflows:
       - define_variables
       - say-hello
           requires:
-            - define_variables
+          - define_variables
