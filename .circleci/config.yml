@@ -36,7 +36,6 @@ jobs:
       - attach_workspace:
           at: .
       - run: |
-          cat bash.env
           cat bash.env >> $BASH_ENV
           cat $BASH_ENV
     # - when:
