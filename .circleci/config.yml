@@ -23,7 +23,7 @@ jobs:
             fi
             echo "Version defined in file: $file_ver"
             echo "Latest git tag: $git_tag"
-            echo "export release=$release" >> $BASH_ENV
+            echo "release=$release" >> $BASH_ENV
             cp $BASH_ENV bash.env
       - persist_to_workspace:
           root: .
@@ -36,7 +36,7 @@ jobs:
       - attach_workspace:
           at: .
       - run: |
-          cat bash.env
+          cat bash.env >> $BASH_ENV
     # - when:
     #     condition:
     #     equal: [ true, << parameters.condition_needed >> ]
