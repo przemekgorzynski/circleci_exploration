@@ -11,16 +11,14 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
+      - attach_workspace:
+          at: .
+      - run: |
+          cat bash.env >> $BASH_ENV
+      - run: |
+          printenv tag_ver
       - run:
           name: "Say hello"
-          command: "ls -la"
-  say-godbye:
-    docker:
-      - image: cimg/base:stable
-    steps:
-      - checkout
-      - run:
-          name: "Say goodbye!"
           command: "ls -la"
   define_condition_job:
     docker:
@@ -31,18 +29,25 @@ jobs:
           name: check
           command: |
             ver=$(cat version.json | jq '.version')
-            echo $ver
+            echo $ver >> "$BASH_ENV"
+            cp $BASH_ENV bash.env
+            cat bash.env
       - run: 
           name: Get curent tag
           command: |
             tag_ver=$(git describe --tags --abbrev=0)
-            echo $tag_ver
+            echo $tag_ver >> "$BASH_ENV"
+            cp $BASH_ENV bash.env
+            cat bash.env
+      - persist_to_workspace:
+          root: .
+          paths:
+            - bash.env
 
 workflows:
   general:
     jobs:
-      - define_condition_job
+      - define_variables
       - say-hello
-      - say-godbye:
           requires:
-          - say-hello
+          - define_variables
