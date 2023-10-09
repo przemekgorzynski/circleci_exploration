@@ -1,24 +1,25 @@
 version: 2.1
 
-parameters:
-  file_ver:
-    type: string
-    default: "11" #$(cat version.json | jq -r '.version')
+ #$(cat version.json | jq -r '.version')
 
 jobs:
   check_versions:
+    parameters:
+      file_ver:
+        type: string
+        default: "11"
     docker:
       - image: cimg/base:stable
     resource_class: small
     environment:
-      tag: <<pipeline.git.tag>>
-      # file_ver: <<parameters.file_ver>>
+      # tag: <<pipeline.git.tag>>
+      file_ver: <<parameters.file_ver>>
     steps:
       - checkout
       - run: 
           name: Compare version
           command: |
-            echo $tag
+            echo $file_ver
           
       # - run: 
       #     name: Compare version
