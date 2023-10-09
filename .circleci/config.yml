@@ -15,10 +15,12 @@ jobs:
       - run: 
           name: Compare version
           command: |
-            if [ "$(cat version.json | jq -r '.version')" > "$(git describe --tags --abbrev=0)" ]; then 
-              echo release=yes >> "$BASH_ENV";
-            else 
-              release=no >> "$BASH_ENV"; 
+            file_ver=$(cat version.json | jq -r '.version')
+            git_tag=$(git describe --tags --abbrev=0)
+            if [[ "$(printf '%s\n' "$file_ver" "$git_tag" | sort -V | tail -n1)" == "$git_tag" ]]; then 
+              echo "release=no" >> "$BASH_ENV"
+            else
+              echo "release=yes" >> "$BASH_ENV"
             fi
             cp $BASH_ENV bash.env
             cat bash.env
