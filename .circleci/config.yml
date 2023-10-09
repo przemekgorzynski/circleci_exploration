@@ -42,16 +42,20 @@ jobs:
       - run:
           name: "Relese"
           command: "echo Relesing"
+    hold:
+      docker:
+          - image:  cimg/base:stable
+      steps:
+        - run: printf "A hold job to wait for a manual approval"
 
 
 workflows:
   general:
     jobs:
       - check_versions
+      - hold:
+          type: approval
       - deploy:
           requires:
-          - check_versions
-        when:
-          conditon:
-            equal: [ main, << pipeline.git.branch >> ]
+          - hold
 
