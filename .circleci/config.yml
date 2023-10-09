@@ -12,12 +12,12 @@ jobs:
     resource_class: small
     steps:
       - checkout
-      - attach_workspace:
-          at: .
-      - run: |
-          cat bash.env >> $BASH_ENV
-      - run: |
-          printenv tag_ver
+      # - attach_workspace:
+      #     at: .
+      # - run: |
+      #     cat bash.env >> $BASH_ENV
+      # - run: |
+      #     printenv tag_ver
       - run:
           name: "Say hello"
           command: "ls -la"
@@ -32,8 +32,8 @@ jobs:
           command: |
             ver=$(cat version.json | jq '.version')
             tag_ver=$(git describe --tags --abbrev=0)
-            echo 'file_ver=$ver' >> "$BASH_ENV"
-            echo 'git_tag=$tag_ver' >> "$BASH_ENV"
+            echo `file_ver=$ver` >> "$BASH_ENV"
+            echo `git_tag=$tag_ver` >> "$BASH_ENV"
             cp $BASH_ENV bash.env
             cat bash.env
       - persist_to_workspace:
