@@ -13,7 +13,7 @@ jobs:
     steps:
       - checkout
       - run: 
-          name: Set versions
+          name: Compare version
           command: |
             if [ "$(cat version.json | jq -r '.version')" > "$(git describe --tags --abbrev=0)" ]; then 
               echo release=yes >> "$BASH_ENV";
