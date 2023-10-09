@@ -11,7 +11,7 @@ jobs:
       - image: cimg/base:stable
     resource_class: small
     environment:
-      file_ver: "test"
+      file_ver: $(cat version.json | jq -r '.version')
     steps:
       - checkout
       - run: 
