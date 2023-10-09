@@ -52,12 +52,12 @@ workflows:
   general:
     jobs:
       - check_versions
-      - approval:
-          type: approval
-          requires:
-          - check_versions
-      - deploy:
-          requires:
-          - approval
-          - check_versions
+      # - approval:
+      #     type: approval
+      #     requires:
+      #     - check_versions
+      # - deploy:
+      #     requires:
+      #     - approval
+      #     - check_versions
 
