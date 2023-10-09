@@ -32,7 +32,6 @@ jobs:
           command: |
             ver=$(cat version.json | jq '.version')
             echo $ver
-            '<< pipeline.parameters.release >>''  = $ver
       - run: 
           name: Get curent tag
           command: |
