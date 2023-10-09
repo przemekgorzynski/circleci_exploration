@@ -19,7 +19,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Say goodbye"
+          name: "Say goodbye!"
           command: "ls -la"
   define_condition_job:
     docker:
