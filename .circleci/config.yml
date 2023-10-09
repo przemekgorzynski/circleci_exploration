@@ -42,7 +42,7 @@ jobs:
       - run:
           name: "Relese"
           command: "echo Relesing"
-    hold:
+    approval:
       docker:
           - image:  cimg/base:stable
       steps:
@@ -53,7 +53,7 @@ workflows:
   general:
     jobs:
       - check_versions
-      - hold:
+      - approval:
           type: approval
       - deploy:
           requires:
