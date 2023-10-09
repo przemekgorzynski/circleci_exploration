@@ -38,13 +38,12 @@ jobs:
       - run: |
           cat bash.env >> $BASH_ENV
           cat $BASH_ENV
-      - when:
+      - checkout:
+        when:
           condition:
             matches:
               pattern: 'true'
               value: $release
-          steps:
-            - checkout
     
 workflows:
   general:
