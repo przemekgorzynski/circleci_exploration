@@ -48,6 +48,6 @@ workflows:
   general:
     jobs:
       - define_variables
-      - say-hello
+      - say-hello:
           requires:
           - define_variables
