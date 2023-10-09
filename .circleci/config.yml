@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  define_variables:
+  check_versions:
     docker:
       - image: cimg/base:stable
     resource_class: small
@@ -31,10 +31,10 @@ jobs:
     resource_class: small
     steps:
       - checkout
-      # - attach_workspace:
-      #     at: .
-      # - run: |
-      #     cat bash.env >> $BASH_ENV
+      - attach_workspace:
+          at: .
+      - run: |
+          cat bash.env >> $BASH_ENV
       # - run: |
       #     printenv tag_ver
       - run:
@@ -45,15 +45,7 @@ jobs:
 workflows:
   general:
     jobs:
-      - define_variables
+      - check_versions
       - deploy:
           requires:
-          - define_variables
-
-
-
-# #             # echo file_ver=$(cat version.json | jq -r '.version') >> "$BASH_ENV"
-#             # echo git_tag=$(git describe --tags --abbrev=0) >> "$BASH_ENV"
-#                         echo $release
-#             cp $BASH_ENV bash.env
-#             cat bash.env
+          - check_versions
