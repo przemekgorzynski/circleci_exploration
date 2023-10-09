@@ -15,12 +15,8 @@ jobs:
       - run: 
           name: Set versions
           command: |
-            ver=$(cat version.json | jq -r '.version')
-            tag_ver=$(git describe --tags --abbrev=0)
-            echo file_ver=$ver >> "$BASH_ENV"
-            echo git_tag=$tag_ver >> "$BASH_ENV"
-            if [ $file_ver > $git_tag ]; then release=yes; else release=no; fi
-            echo release=$release >> "$BASH_ENV"
+            if [ "$(cat version.json | jq -r '.version')" > "$(git describe --tags --abbrev=0)" ]; then release=yes; else release=no; fi
+            echo $release
             cp $BASH_ENV bash.env
             cat bash.env
       - persist_to_workspace:
@@ -51,3 +47,8 @@ workflows:
       - deploy:
           requires:
           - define_variables
+
+
+
+#             # echo file_ver=$(cat version.json | jq -r '.version') >> "$BASH_ENV"
+            # echo git_tag=$(git describe --tags --abbrev=0) >> "$BASH_ENV"
