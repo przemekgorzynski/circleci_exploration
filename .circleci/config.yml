@@ -17,14 +17,13 @@ jobs:
             file_ver=$(cat version.json | jq -r '.version')
             git_tag=$(git describe --tags --abbrev=0)
             if [[ "$(printf '%s\n' "$file_ver" "$git_tag" | sort -V | tail -n1)" == "$git_tag" ]]; then 
-              echo "release=false" >> $BASH_ENV
+              release=false
             else
-              echo "release=true" >> $BASH_ENV
+              release=true
             fi
             echo "Version defined in file: $file_ver"
             echo "Latest git tag: $git_tag"
             echo "Release: $release"
-            cp $BASH_ENV bash.env
   deploy:
     executor: node
     resource_class: small
