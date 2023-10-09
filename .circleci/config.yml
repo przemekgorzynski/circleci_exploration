@@ -10,13 +10,14 @@ jobs:
     docker:
       - image: cimg/base:stable
     resource_class: small
+    env:
+      tag: <<pipeline.git.tag>>
     steps:
       - checkout
       - run: 
           name: Compare version
           command: |
-            echo <<pipeline.git.tag>>
-
+            echo $tag
           
       # - run: 
       #     name: Compare version
