@@ -15,21 +15,26 @@ jobs:
       - run: 
           name: Compare version
           command: |
-            file_ver=$(cat version.json | jq -r '.version')
-            git_tag=$(git describe --tags --abbrev=0)
-            echo "Version defined in file: $file_ver"
-            echo "Latest git tag: $git_tag"
-            if [[ "$(printf '%s\n' "$file_ver" "$git_tag" | sort -V | tail -n1)" == "$git_tag" ]]; then 
-              echo "release=false" >> $BASH_ENV
-            else
-              echo "release=true" >> $BASH_ENV
-            fi
-            cp $BASH_ENV bash.env
-            cat bash.env
-      - persist_to_workspace:
-          root: .
-          paths:
-            - bash.env
+            echo <<pipeline.git.tag>>
+            echo <<parmaters.file_ver>>
+      # - run: 
+      #     name: Compare version
+      #     command: |
+      #       file_ver=$(cat version.json | jq -r '.version')
+      #       git_tag=$(git describe --tags --abbrev=0)
+      #       echo "Version defined in file: $file_ver"
+      #       echo "Latest git tag: $git_tag"
+      #       if [[ "$(printf '%s\n' "$file_ver" "$git_tag" | sort -V | tail -n1)" == "$git_tag" ]]; then 
+      #         echo "release=false" >> $BASH_ENV
+      #       else
+      #         echo "release=true" >> $BASH_ENV
+      #       fi
+      #       cp $BASH_ENV bash.env
+      #       cat bash.env
+      # - persist_to_workspace:
+      #     root: .
+      #     paths:
+      #       - bash.env
   deploy:
     docker:
       - image: cimg/base:stable
