@@ -15,9 +15,9 @@ jobs:
             echo "Version defined in file: $file_ver"
             echo "Latest git tag: $git_tag"
             if [[ "$(printf '%s\n' "$file_ver" "$git_tag" | sort -V | tail -n1)" == "$git_tag" ]]; then 
-              echo "release=no" >> "$BASH_ENV"
+              echo "release=no" >> $BASH_ENV
             else
-              echo "release=yes" >> "$BASH_ENV"
+              echo "release=yes" >> $BASH_ENV
             fi
             cp $BASH_ENV bash.env
             cat bash.env
