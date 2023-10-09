@@ -10,8 +10,9 @@ jobs:
     docker:
       - image: cimg/base:stable
     resource_class: small
-    env:
+    environment:
       tag: <<pipeline.git.tag>>
+      # file_ver: <<parameters.file_ver>>
     steps:
       - checkout
       - run: 
