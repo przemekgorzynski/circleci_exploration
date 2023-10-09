@@ -32,6 +32,7 @@ jobs:
   deploy:
     executor: node
     resource_class: small
+    steps:
       - attach_workspace:
           at: .
       - run: |
