@@ -23,12 +23,24 @@ jobs:
             fi
             echo "Version defined in file: $file_ver"
             echo "Latest git tag: $git_tag"
-            echo "Release: $release"
+            echo "export release=$release" >> $BASH_ENV
+            cp $BASH_ENV bash.env
+      - persist_to_workspace:
+          root: .
+          paths:
+            - bash.env
   deploy:
     executor: node
     resource_class: small
-    steps:
-      - checkout
+      - attach_workspace:
+          at: .
+      - run: |
+          cat bash.env
+    # - when:
+    #     condition:
+    #     equal: [ true, << parameters.condition_needed >> ]
+    #   steps:
+    #     - checkout
     
 workflows:
   general:
