@@ -24,10 +24,16 @@ jobs:
               echo "release=true" >> $BASH_ENV
             fi
             cp $BASH_ENV bash.env
-
+  deploy:
+    executor: node
+    resource_class: small
+    steps:
+      - checkout
+    
 workflows:
   general:
     jobs:
       - check_versions
+      - deploy
 
 
